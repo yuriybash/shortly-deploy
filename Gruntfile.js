@@ -36,20 +36,26 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: [
-        // Add filespec list here
-      ],
-      options: {
-        force: 'true',
-        jshintrc: '.jshintrc',
-        ignores: [
-          'public/lib/**/*.js',
-          'public/dist/**/*.js'
-        ]
-      }
+        all: ['public/client/**/*.js'],
+        options: {
+          jshintrc: '.jshintrc',
+          ignores: [
+            'public/lib/**/*.js',
+            'public/dist/**/*.js'
+          ]
+        }
     },
 
     cssmin: {
+        target: {
+            files: [{
+              expand: true,
+              cwd: 'public',
+              src: ['*.css', '!*.min.css'],
+              dest: 'public',
+              ext: '.min.css'
+            }]
+          }
     },
 
     watch: {
@@ -105,7 +111,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat', 'uglify'
+  grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'cssmin'
   ]);
 
   grunt.registerTask('upload', function(n) {
