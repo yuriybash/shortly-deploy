@@ -29,6 +29,10 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+            files: {
+                src: 'public/dist/built.js',
+                dest:'public/dist/built.min.js'
+            }
     },
 
     jshint: {
@@ -101,7 +105,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat'
+  grunt.registerTask('build', ['concat', 'uglify'
   ]);
 
   grunt.registerTask('upload', function(n) {
